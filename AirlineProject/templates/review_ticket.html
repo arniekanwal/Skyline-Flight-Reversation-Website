@@ -1,0 +1,26 @@
+<html>
+<head>
+    <title>Skyline: Review Ticket</title>
+</head>
+
+<body>
+
+<h3>Review This Flight (Ticket {{ticket_ID}}):</h3>
+<form action="/update_ticket" method="POST">
+    <input type="hidden" id="ticket_ID" name="ticket_ID" value="{{ticket_ID}}">
+    <input type="text" id="rating" name="rating" placeholder="Rating Out of 5">
+    <p>Leave a comment about your flight:</p>
+    <div>
+        <textarea name="comments" id="comments" style="width:250px;height:150px;">
+            {{comments}}
+        </textarea>
+     </div>
+    <input type="submit" value="Submit">
+</form>
+
+<a href="/cust_home">Go to Home Page</a>
+<a href="/cust_logout">Logout</a>
+</body>
+
+
+</html>

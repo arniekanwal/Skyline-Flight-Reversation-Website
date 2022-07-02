@@ -1,0 +1,46 @@
+<html>
+<head></head>
+
+<body>
+<form action="/purchase_ticket" method="POST">
+    <h3>Purchase a Ticket for Flight {{flight}}
+        from {{dep_airport}} to {{arrival_airport}}
+        on {{dep_date}} for ${{sale_price}}
+    </h3>
+	<div>
+        <input type="hidden" id="item2" name="item2" value='{{flight}}'>
+        <input type="hidden" id="item3" name="item3" value='{{dep_date}}'>
+        <input type="hidden" id="item4" name="item4" value='{{airline}}'>
+        <input type="hidden" id="item5" name="item5" value='{{dep_airport}}'>
+        <input type="hidden" id="item6" name="item6" value='{{sale_price}}'>
+        <input type="hidden" id="item7" name="item7" value='{{email}}'>
+
+		<p>Customer Email: {{email}}</p>
+
+		<label for="card_type">Card Type:</label></br>
+		<input type="text" id="item8" name="item8" 
+		placeholder="Type" required>
+
+        <label for="card_num">Card Number:</label>
+        <input id="item9" name="item9" required pattern="[0-9]{10}"
+        placeholder="Card Number" required>
+
+        <label for="name">Name on Card:</label>
+        <input type="text" id="item10" name="item10"
+        placeholder="Name on Card" required>
+
+        <label for="exp_date">Card Expiration Date:</label>
+        <input type="date" id="item11" name="item11" required>
+	</div>
+	<input type="submit" value="Purchase">
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/cust_home">Go back</a>
+
+</body>
+
+
+</html>

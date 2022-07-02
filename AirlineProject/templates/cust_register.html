@@ -1,0 +1,53 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/custRegisterAuth" method="POST">
+	<div>
+		<label for="item1">Email Address:</label></br>
+		<input type="text" id="item1" name="item1" 
+		placeholder="Email Address" required>
+	</div>
+	<div>
+		<label for="item2">Password:</label></br>
+		<input type="password" id="item2" name="item2" 
+		placeholder="Password" required>
+	</div>
+	<div>
+		<label for="item3">Please Enter Your Full Legal Name:</label></br>
+		<input type="text" id="item3" name="item3"
+		placeholder="Name on Passport" required>
+	</div>
+	<div>
+		<label for="address">Address Information:</label></br>
+		<input type="number" id="item4" name="item4"
+		placeholder="Building Number" required>
+		<input type="text" id="item5" name="item5"
+		placeholder="Street" required>
+		<input type="text" id="item6" name="item6"
+		placeholder="City" required>
+	</div>
+	<div>
+		<label for="item7">Phone Number:</label></br>
+		<input type="tel" id="item7" name="item7"
+		placeholder="Telephone No." required>
+	</div>
+	<div>
+		<label for="passport">Passport Information:</label></br>
+		<input type="number" id="item8" name="item8"
+		placeholder="Passport No." required>
+		<input type="text" id="item10" name="item10"
+		placeholder="Passport Country" required></br>
+		<label for="item10">Passport Expiration:</label></br>
+		<input type="date" id="item9" name="item9" required></br>
+		<label for="item11">Date of Birth:</label></br>
+		<input type="date" id="item11" name="item11" required>
+	</div>
+	<input type="submit" name="cust_register" value = Register />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+<a href="/">Go back</a>
+</body>
+</html>

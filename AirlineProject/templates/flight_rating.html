@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Flight Ratings</title>
+</head>
+
+<body>
+
+<style>
+#flights {
+    border-collapse: collapse;
+	margin-bottom: 30px;
+}
+
+#flights th {
+    text-align: left;
+    background-color: #3a6070;
+    color: #FFF;
+    padding: 4px 30px 4px 8px;
+    font-size: small;
+}
+
+#flights td {
+    border: 1px solid #e3e3e3;
+    padding: 4px 8px;
+    font-size: small;
+}
+
+#flights tr:nth-child(odd) td{
+    background-color: #e7edf0;
+}
+</style>
+
+<h2>See Flight Ratings & Comments</h2>
+<label for="flights">View Your Upcoming Flights</label>
+<table id="flights">
+	<tr>
+		<th>User</th>
+		<th>Rating</th>
+		<th>Comments</th>
+	</tr>
+{% for line in data %}
+	<tr>
+		<td>{{line['email_address']}}</td>
+		<td>{{line['rating']}}</td>
+		<td>{{line['comments']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+<a href="/staff_main">Go Back</a>
+<a href="/staff_logout">Logout</a>
+</body>
+
+
+</html>

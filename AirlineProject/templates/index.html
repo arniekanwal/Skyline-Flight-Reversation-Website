@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skyline Flight Reserve</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style>
+body{
+   margin:0px;
+   margin-top:60px;
+   padding: 0px;
+}
+nav{
+   display: flex;
+   position: fixed;
+   top:0;
+   width: 100%;
+   background-color: #7393B3;
+   overflow: auto;
+   height: auto;
+}
+.left-links{
+   flex:1 1 200px;
+}
+.links {
+   display: inline-block;
+   text-align: center;
+   padding: 14px;
+   color: white;
+   text-decoration: none;
+   font-size: 12px;
+}
+.links:hover {
+   border-bottom: 2px solid white;
+}
+.selected{
+   border-bottom: 2px solid white;
+}
+.error {
+   color: red;
+}
+
+#AvailableFlights {
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+#AvailableFlights th {
+    text-align: left;
+    background-color: #7393B3;
+    color: #FFF;
+    padding: 4px 30px 4px 8px;
+    font-size: small;
+}
+
+#AvailableFlights td {
+    border: 1px solid #e3e3e3;
+    padding: 4px 8px;
+    font-size: small;
+}
+
+#AvailableFlights tr:nth-child(odd) td{
+    background-color: #e7edf0;
+}
+</style>
+</head>
+
+<body>
+<nav>
+	<div class="left-links">
+      {% if not message %}
+		<a class="links" href="/custLogin">Login</a>
+		<a class="links" href="/custRegister">Register</a>
+      {% endif %}
+      {% if message %}
+      <label class="links">Welcome {{name}}</label>
+      {% endif %}
+	</div>
+	<div class="right-links">
+      {% if not message %}
+		<a class="links" href="/staffLogin">Staff Login</a>
+      {% endif %}
+	</div>
+</nav>
+
+{% if not message or customer %}
+<form action="/searchflights" method="POST">
+   <label for="SearchFlights">Book Your Next Flight:</label>
+   <div id="SearchFlights">
+      <input type="text" id="dep_airport" name="dep_airport" 
+      placeholder="Departure Airport" required>
+      <input type="text" id="arr_airport" name="arr_airport" 
+      placeholder="Arrival Airport" required>
+
+      <label for="dep_date">Departure Date:</label>
+      <input type="date" id="dep_date" name="dep_date" required>
+   </div>
+   <input type="submit" value="Find Flights">
+</form>
+{% endif %}
+
+{% if staff %}
+<form action="/staff_flight_view" method="POST">
+   <label for="staff_flight_view">View {{airline}} Upcoming Flights:</label>
+      <select name="staff_flight_view" id="staff_flight_view">
+         <option value=""></option>
+         <option value="month">1 Month</option>
+         <option value="month3">3 Months</option>
+         <option value="year">1 Year</option>
+         <option value="past">Past Flights in Last Year</option>
+       </select>
+   <input type="submit" value="View Flights">
+</form>
+{% endif %}
+
+<table id="AvailableFlights">
+	<tr>
+		<th>Flight No.</th>
+		<th>Departure Airport</th>
+		<th>Arrival Airport</th>
+		<th>Departure Time</th>
+		<th>Arrival Time</th>
+		<th>Airline</th>
+		<th>Seats Available</th>
+	</tr>
+{% for line in posts %}
+<tr>
+		<td>{{line['flight_number']}}</td>
+		<td>{{line['departure_airport']}}</td>
+		<td>{{line['arrival_airport']}}</td>
+		<td>{{line['departure_date_and_time']}}</td>
+		<td>{{line['arrival_date_and_time']}}</td>
+		<td>{{line['airline_name']}}</td>
+		<td>{{line['seats']}}</td>
+	</tr>
+{% endfor %}
+</table>
+
+{% if staff %}
+<form action="/flight_rating" method="POST">
+   <label for="flight_rating">Enter Flight No. to View Ratings:</label>
+   <input type="text" id="flight_num" name="flight_num" placeholder="Flight #" required>
+   <input type="submit" value="Submit">
+</form>
+
+<form action="/update_status" method="POST">
+   <label for="status">Enter Flight No. to Update Status</label>
+   <input type="text" id="flight_no" name="flight_no" placeholder="Flight #" required>
+      <select name="status" id="status">
+         <option value="On-Time">On-Time</option>
+         <option value="Delayed">Delayed</option>
+       </select>
+   <input type="submit" value="Update">
+   {% if update %}
+   <p style="color: green;">{{update}}</p>
+   {% endif %}
+</form>
+{% endif %}
+
+{% if customer %}
+<form action="/create_ticket" method="POST">
+   <label for="flight_no">Enter the Number of the Flight you would like to Purchase:</label>
+   <input type="number" id="flight_no" name="flight_no" required>
+   <input type="submit" value="Create Ticket">
+</form>
+{% endif %}
+
+{% if error %}
+<p style="color: red;">{{error}}</p>
+{% endif %}
+
+{% if staff %}
+   <a href="/staff_home">Go to Home Page</a>
+	<a href="/staff_logout">Logout</a>
+{% endif %}
+
+{% if customer %}
+   <a href="/cust_home">Go to Home Page</a>
+   <a href="/cust_logout">Logout</a>
+{% endif %}
+
+</body>
+
+</html>
+
+
